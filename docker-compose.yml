@@ -6,7 +6,7 @@ networks:
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
+    container_name: nginx-state
     ports:
       - "8088:80"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   mysql:
     image: mysql:5.7.22
-    container_name: mysql
+    container_name: mysql-state
     restart: unless-stopped
     tty: true
     ports:
@@ -28,8 +28,8 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: race
-      MYSQL_USER: race
+      MYSQL_DATABASE: state-city
+      MYSQL_USER: state-city
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       SERVICE_TAGS: dev
@@ -41,7 +41,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php
+    container_name: php-state
     volumes:
       - ./src:/var/www/html
     ports:
