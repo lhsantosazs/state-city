@@ -25,6 +25,7 @@ Route::get('/test', function () {
 Route::group(['prefix' => 'state'], function () {
     Route::post('/', 'StateController@create');
     Route::get('/', 'StateController@read')->where('stateId', '[0-9]+');
+    //Route::post('/{stateId}', 'StateController@update')->where('stateId', '[0-9]+');
     Route::put('/{stateId}', 'StateController@update')->where('stateId', '[0-9]+');
     Route::delete('/{stateId}', 'StateController@delete')->where('stateId', '[0-9]+');
 });

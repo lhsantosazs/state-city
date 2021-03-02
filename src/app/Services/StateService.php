@@ -9,6 +9,7 @@ class StateService
     const SAVED = 'Estado salvo com sucesso';
     const FAIL = 'Falha ao salvar estado';
     const DUPLICATED = 'Estado duplicado';
+    const NOT_FOUND = 'Estado inexistente';
 
     /**
      * Create a state
@@ -38,7 +39,26 @@ class StateService
     public function read(array $params) : array
     {
         $id = isset($params['id']) ? $params['id'] : null;
-        return State::filterById($id)->get()->toArray();
+        return $this->getStateById($id)->get()->toArray();
+    }
+
+    /**
+     * Update a state
+     * @param array $params
+     * @param int $stateId
+     * @return array
+     */
+    public function update(array $params, int $stateId) : array
+    {
+        $state = $this->getStateById($stateId)->first();
+        if (empty($state)) {
+            return ['msg' => self::NOT_FOUND];
+        }
+
+        $state->name = isset($params['name']) ? $params['name'] : $state->name;
+        $state->abbreviation = isset($params['abbreviation']) ? $params['abbreviation'] : $state->abbreviation;
+
+        return $this->save($state);
     }
 
     /**
@@ -65,5 +85,15 @@ class StateService
     public function getStateByNameAndAbbreviation(string $name, string $abbreviation)
     {
         return State::filterByName($name)->filterByAbbreviation($abbreviation)->first();
+    }
+
+    /**
+     * Get state by id
+     * @param ?int $id
+     * @return State|null
+     */
+    public function getStateById(?int $id)
+    {
+        return State::filterById($id);
     }
 }

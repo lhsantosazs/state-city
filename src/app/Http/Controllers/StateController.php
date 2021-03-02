@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateStateRequest;
 use App\Http\Requests\ListStateRequest;
+use App\Http\Requests\UpdateStateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Services\StateService;
 
@@ -28,9 +29,9 @@ class StateController extends Controller
     {
         $params = $createStateRequest->all();
 
-        $raceCreated = $this->stateService->create($params);
+        $stateCreated = $this->stateService->create($params);
 
-        return response()->json($raceCreated);
+        return response()->json($stateCreated);
     }
 
     /**
@@ -42,8 +43,23 @@ class StateController extends Controller
     {
         $params = $listStateRequest->all();
 
-        $raceCreated = $this->stateService->read($params);
+        $states = $this->stateService->read($params);
 
-        return response()->json($raceCreated);
+        return response()->json($states);
+    }
+
+    /**
+     * Update a state
+     * @param UpdateStateRequest $updateStateRequest
+     * @param int $stateId
+     * @return JsonResponse
+     */
+    public function update(UpdateStateRequest $updateStateRequest, int $stateId) : JsonResponse
+    {
+        $params = $updateStateRequest->all();
+
+        $stateUpdated = $this->stateService->update($params, $stateId);
+
+        return response()->json($stateUpdated);
     }
 }
