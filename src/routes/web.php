@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return 'Docker works! State project';
 });
+
+//State routes
+Route::group(['prefix' => 'state'], function () {
+    Route::post('/', 'StateController@create');
+    Route::get('/', 'StateController@read')->where('stateId', '[0-9]+');
+    Route::put('/{stateId}', 'StateController@update')->where('stateId', '[0-9]+');
+    Route::delete('/{stateId}', 'StateController@delete')->where('stateId', '[0-9]+');
+});
