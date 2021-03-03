@@ -54,4 +54,12 @@ class State extends Model
     {
         return $query->where('abbreviation', $abbreviation);
     }
+
+    /**
+     * Get the cities.
+     */
+    public function cities()
+    {
+        return $this->hasMany('App\Models\City', 'state_id', 'id');
+    }
 }

@@ -40,7 +40,8 @@ class StateService
     public function read(array $params) : array
     {
         $id = isset($params['id']) ? $params['id'] : null;
-        return $this->getStateById($id)->get()->toArray();
+
+        return $this->getStateById($id)->with('cities')->get()->toArray();
     }
 
     /**
