@@ -28,3 +28,11 @@ Route::group(['prefix' => 'state'], function () {
     Route::put('/{stateId}', 'StateController@update')->where('stateId', '[0-9]+');
     Route::delete('/{stateId}', 'StateController@delete')->where('stateId', '[0-9]+');
 });
+
+//City routes
+Route::group(['prefix' => 'city'], function () {
+    Route::post('/', 'CityController@create');
+    Route::get('/', 'CityController@read')->where('cityId', '[0-9]+');
+    Route::put('/{cityId}', 'CityController@update')->where('cityId', '[0-9]+');
+    Route::delete('/{cityId}', 'CityController@delete')->where('cityId', '[0-9]+');
+});

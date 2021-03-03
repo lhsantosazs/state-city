@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ListStateRequest extends FormRequest
+class ListCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class ListStateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'numeric|exists:state,id'
+            'id' => 'numeric|exists:city,id'
         ];
     }
 

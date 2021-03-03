@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdateStateRequest extends FormRequest
+class UpdateCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class UpdateStateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string',
-            'abbreviation' => 'alpha'
+            'state_id' => 'exists:state,id',
+            'name' => 'string'
         ];
     }
 
