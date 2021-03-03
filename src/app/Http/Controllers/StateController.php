@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateStateRequest;
-use App\Http\Requests\ListStateRequest;
-use App\Http\Requests\UpdateStateRequest;
+use App\Http\Requests\State\CreateStateRequest;
+use App\Http\Requests\State\ListStateRequest;
+use App\Http\Requests\State\UpdateStateRequest;
 use Illuminate\Http\JsonResponse;
 use App\Services\StateService;
 
 class StateController extends Controller
 {
- /**
+
+    /**
      * Constructor to instantiate Request
      * @param StateService $stateService
      */
@@ -61,5 +62,17 @@ class StateController extends Controller
         $stateUpdated = $this->stateService->update($params, $stateId);
 
         return response()->json($stateUpdated);
+    }
+
+    /**
+     * Delete a state
+     * @param int $stateId
+     * @return JsonResponse
+     */
+    public function delete(int $stateId) : JsonResponse
+    {
+        $stateDeleted = $this->stateService->delete($stateId);
+
+        return response()->json($stateDeleted);
     }
 }

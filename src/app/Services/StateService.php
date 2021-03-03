@@ -6,10 +6,11 @@ use App\Models\State;
 
 class StateService
 {
-    const SAVED = 'Estado salvo com sucesso';
-    const FAIL = 'Falha ao salvar estado';
+    const DELETED = 'Estado deletado com sucesso';
     const DUPLICATED = 'Estado duplicado';
+    const FAIL = 'Falha ao salvar estado';
     const NOT_FOUND = 'Estado inexistente';
+    const SAVED = 'Estado salvo com sucesso';
 
     /**
      * Create a state
@@ -59,6 +60,23 @@ class StateService
         $state->abbreviation = isset($params['abbreviation']) ? $params['abbreviation'] : $state->abbreviation;
 
         return $this->save($state);
+    }
+
+    /**
+     * Update a state
+     * @param array $params
+     * @param int $stateId
+     * @return array
+     */
+    public function delete(int $stateId) : array
+    {
+        $state = $this->getStateById($stateId)->first();
+        if (empty($state)) {
+            return ['msg' => self::NOT_FOUND];
+        }
+
+        $state->delete();
+        return ['msg' => self::DELETED];
     }
 
     /**
