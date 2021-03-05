@@ -40,7 +40,7 @@ class CityService
     public function read(array $params) : array
     {
         $id = isset($params['id']) ? $params['id'] : null;
-        return $this->getCityById($id)->with('state')->get()->toArray();
+        return $this->getCityByIdWithState($id);
     }
 
     /**
@@ -51,7 +51,7 @@ class CityService
      */
     public function update(array $params, int $cityId) : array
     {
-        $city = $this->getCityById($cityId)->first();
+        $city = $this->getCityById($cityId);
         if (empty($city)) {
             return ['msg' => self::NOT_FOUND];
         }
@@ -70,7 +70,7 @@ class CityService
      */
     public function delete(int $cityId) : array
     {
-        $city = $this->getCityById($cityId)->first();
+        $city = $this->getCityById($cityId);
         if (empty($city)) {
             return ['msg' => self::NOT_FOUND];
         }
@@ -112,6 +112,16 @@ class CityService
      */
     public function getCityById(?int $id)
     {
-        return City::filterById($id);
+        return City::filterById($id)->first();
+    }
+
+    /**
+     * Get city by id with state
+     * @param ?int $id
+     * @return City|null
+     */
+    public function getCityByIdWithState(?int $id)
+    {
+        return City::filterById($id)->with('state')->get()->toArray();
     }
 }
