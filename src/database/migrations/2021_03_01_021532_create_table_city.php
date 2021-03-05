@@ -18,7 +18,8 @@ class CreateTableCity extends Migration
             $table->integer('state_id')->unsigned();
             $table->foreign('state_id')
                   ->references('id')
-                  ->on('state');
+                  ->on('state')
+                  ->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });
