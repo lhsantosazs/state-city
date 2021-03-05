@@ -41,7 +41,7 @@ class StateService
     {
         $id = isset($params['id']) ? $params['id'] : null;
 
-        return $this->getStateById($id)->with('cities')->get()->toArray();
+        return $this->getStateByIdWithCities($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class StateService
      */
     public function update(array $params, int $stateId) : array
     {
-        $state = $this->getStateById($stateId)->first();
+        $state = $this->getStateById($stateId);
         if (empty($state)) {
             return ['msg' => self::NOT_FOUND];
         }
@@ -71,7 +71,7 @@ class StateService
      */
     public function delete(int $stateId) : array
     {
-        $state = $this->getStateById($stateId)->first();
+        $state = $this->getStateById($stateId);
         if (empty($state)) {
             return ['msg' => self::NOT_FOUND];
         }
@@ -101,7 +101,7 @@ class StateService
      * @param string $abbreviation
      * @return State|null
      */
-    public function getStateByNameAndAbbreviation(string $name, string $abbreviation)
+    protected function getStateByNameAndAbbreviation(string $name, string $abbreviation)
     {
         return State::filterByName($name)->filterByAbbreviation($abbreviation)->first();
     }
@@ -111,8 +111,18 @@ class StateService
      * @param ?int $id
      * @return State|null
      */
-    public function getStateById(?int $id)
+    protected function getStateById(?int $id)
     {
-        return State::filterById($id);
+        return State::filterById($id)->first();
+    }
+
+    /**
+     * Get state by id with cities
+     * @param ?int $id
+     * @return State|null
+     */
+    protected function getStateByIdWithCities(?int $id)
+    {
+        return State::filterById($id)->with('cities')->get()->toArray();
     }
 }
