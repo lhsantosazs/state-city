@@ -3,6 +3,7 @@ State-city REST API
 
 # Code distribution
 
+* All code anted to PSR-1, PSR-2 and PSR-5
 * migrations in src/database/migrations
 * routes in src/routes/web.php
 * controllers in src/app/Http/Controllers
@@ -16,8 +17,8 @@ State-city REST API
 * install docker
 * install docker-compose
 * git clone git@github.com:lhsantosazs/state-city.git
-* cp .env.example .env
 * cd src
+* cp .env.example .env
 * docker-compose build
 * ./console migrate
 * docker-compose start
